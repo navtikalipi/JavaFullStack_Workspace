@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Cricket Score</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+        }
+
+        nav {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: gold;
+        }
+
+        .score-card {
+            background: white;
+            color: black;
+            width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .score {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .status {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .highlight {
+            color: green;
+            font-weight: bold;
+            animation: blink 0.6s alternate 4;
+        }
+
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.2; }
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #2c5364;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/home.html">Home</a>
+    <a href="/players.html">Players</a>
+    <a href="/matches.html">Matches</a>
+</nav>
+
+<h1>🏏 India vs Australia</h1>
+
+<div class="score-card">
+    <div>India</div>
+    <div class="score" id="score">120 / 2</div>
+    <div class="status" id="overs">Overs: 15.0</div>
+    <div class="status">Target: 180</div>
+    <div class="status" id="message"></div>
+
+    <button onclick="addRun()">Simulate Ball</button>
+</div>
+
+<script>
+    let runs = 120;
+    let wickets = 2;
+    let balls = 90; // 15 overs
+    let target = 180;
+
+    function addRun() {
+        let run = Math.floor(Math.random() * 7); // 0 to 6
+        balls++;
+
+        if(run === 0) {
+            document.getElementById("message").innerHTML = "Dot Ball";
+        }
+        else if(run === 4 || run === 6) {
+            document.getElementById("message").innerHTML = "<span class='highlight'>Boundary! +" + run + "</span>";
+        }
+        else {
+            document.getElementById("message").innerHTML = "+" + run + " runs";
+        }
+
+        runs += run;
+
+        // Random wicket chance
+        if(Math.random() < 0.1) {
+            wickets++;
+            document.getElementById("message").innerHTML = "<span style='color:red'>WICKET!</span>";
+        }
+
+        let overs = Math.floor(balls / 6) + "." + (balls % 6);
+
+        document.getElementById("score").innerHTML = runs + " / " + wickets;
+        document.getElementById("overs").innerHTML = "Overs: " + overs;
+
+        if(runs >= target) {
+            document.getElementById("message").innerHTML = "<span style='color:green'>India Won! 🎉</span>";
+        }
+    }
+</script>
+
+</body>
+</html>
