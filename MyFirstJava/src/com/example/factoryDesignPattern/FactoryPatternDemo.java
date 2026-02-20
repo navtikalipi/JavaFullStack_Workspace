@@ -1,4 +1,4 @@
-package com.example.designPattern;
+package com.example.factoryDesignPattern;
 
 public class FactoryPatternDemo {
 
